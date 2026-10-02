@@ -694,17 +694,8 @@ p95 44.6 ms: 호스트 → Docker, warm 요청 100회, Apple M5 환경 실측(RE
     <div style="font-size:24px;font-weight:800;color:var(--amber-ink);margin-top:6px">직접 돌려보며 찾은 빈틈</div>
     <div class="row" style="gap:22px;margin-top:-14px;align-items:stretch"><div style="flex:1;display:flex;flex-direction:column;border:3px solid var(--line);border-radius:14px;overflow:hidden">
       <div style="padding:22px 26px;display:flex;flex-direction:column;gap:10px;flex:1">
-        <div style="display:flex;align-items:center;gap:12px"><span class="dot" style="width:40px;height:40px;font-size:20px;background:var(--ink2)">1</span><h3 style="font-size:30px;line-height:1.25">오차만 보면 늦게 안다</h3></div>
-        <p style="font-size:23px;line-height:1.5;color:var(--ink2)">무게 오차는 저울 실측이 쌓여야 계산된다. 실험 23에서 경고까지 <b>190샷(약 3.5시간)</b> 걸렸지만, 압력 곡선은 <b>첫 21샷</b>에 이미 36% 달라졌다.</p>
-      </div>
-      <div style="background:var(--amber-soft);border-top:3px solid var(--amber);padding:16px 26px;display:flex;gap:12px;align-items:center;height:110px">
-        <span style="flex:none;font-size:20px;font-weight:800;color:#fff;background:var(--amber);border-radius:6px;padding:2px 10px">다음</span>
-        <span style="font-size:26px;font-weight:800;color:var(--ink);line-height:1.35">저울을 기다리지 않고 압력 곡선 변화를 먼저 감시</span>
-      </div>
-    </div><div style="flex:1;display:flex;flex-direction:column;border:3px solid var(--line);border-radius:14px;overflow:hidden">
-      <div style="padding:22px 26px;display:flex;flex-direction:column;gap:10px;flex:1">
-        <div style="display:flex;align-items:center;gap:12px"><span class="dot" style="width:40px;height:40px;font-size:20px;background:var(--ink2)">2</span><h3 style="font-size:30px;line-height:1.25">새 조건을 배우면 예전 조건을 잊는다</h3></div>
-        <p style="font-size:23px;line-height:1.5;color:var(--ink2)">재학습 모델은 새 조건에 맞춰졌지만, 예전 조건(실험 15·20) 오차는 <b>0.15 → 0.41 g</b>으로 커졌다.</p>
+        <div style="display:flex;align-items:center;gap:12px"><span class="dot" style="width:40px;height:40px;font-size:20px;background:var(--ink2)">1</span><h3 style="font-size:30px;line-height:1.25">새 조건을 배우면 예전 조건을 잊는다</h3></div>
+        <p style="font-size:23px;line-height:1.5;color:var(--ink2)">재학습 모델은 새 조건에 맞춰졌지만, 예전 조건(실험 15·20) 오차는 <b style="white-space:nowrap">0.15 → 0.41 g</b>으로 커졌다.</p>
       </div>
       <div style="background:var(--amber-soft);border-top:3px solid var(--amber);padding:16px 26px;display:flex;gap:12px;align-items:center;height:110px">
         <span style="flex:none;font-size:20px;font-weight:800;color:#fff;background:var(--amber);border-radius:6px;padding:2px 10px">다음</span>
@@ -712,7 +703,7 @@ p95 44.6 ms: 호스트 → Docker, warm 요청 100회, Apple M5 환경 실측(RE
       </div>
     </div><div style="flex:1;display:flex;flex-direction:column;border:3px solid var(--line);border-radius:14px;overflow:hidden">
       <div style="padding:22px 26px;display:flex;flex-direction:column;gap:10px;flex:1">
-        <div style="display:flex;align-items:center;gap:12px"><span class="dot" style="width:40px;height:40px;font-size:20px;background:var(--ink2)">3</span><h3 style="font-size:30px;line-height:1.25">0.3 g은 우리가 정한 기준이다</h3></div>
+        <div style="display:flex;align-items:center;gap:12px"><span class="dot" style="width:40px;height:40px;font-size:20px;background:var(--ink2)">2</span><h3 style="font-size:30px;line-height:1.25">0.3 g은 우리가 정한 기준이다</h3></div>
         <p style="font-size:23px;line-height:1.5;color:var(--ink2)">데이터에 현장 공차가 없어, 정상 오차 범위를 보고 팀이 정했다.</p>
       </div>
       <div style="background:var(--amber-soft);border-top:3px solid var(--amber);padding:16px 26px;display:flex;gap:12px;align-items:center;height:110px">
@@ -722,7 +713,7 @@ p95 44.6 ms: 호스트 → Docker, warm 요청 100회, Apple M5 환경 실측(RE
     </div></div>
   </div>
   <footer class="sf"><span></span><span class="pn"></span></footer>
-  <aside class="notes">1번이 가장 중요하다. 무게 오차(RMSE)는 저울 결과와 비교해야 해서 늦을 수밖에 없다. 실험 23 앞부분은 모델이 114.1 g 근처로 답하는데 실측도 113.99~114.39 g이라 우연히 맞았다. 반면 금형 내 압력 곡선 후반부는 첫 21샷에서 이미 36% 낮아졌으므로, 입력을 직접 보면 저울을 기다리지 않고 잡을 수 있다.
+  <aside class="notes">1번은 재학습의 부작용이다. 새 조건 데이터로 이어 학습하면 예전 조건 성능이 떨어지므로, 조건별 모델을 따로 두고 골라 쓰는 구조가 다음 단계다. 2번은 0.3 g이 현장 공차가 아니라 데이터로 정한 팀 기준이라는 점을 밝힌 것이다.
 그 밖에 단일 사출기·단일 금형 데이터라 다른 제품으로의 일반화는 검증하지 않았다.</aside>
 </section>
 

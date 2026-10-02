@@ -129,6 +129,8 @@ table.t tr.warn td{background:var(--amber-soft)}
 
 /* 네비게이션 */
 #bar{position:fixed;left:0;top:0;height:4px;background:var(--teal);transition:width .25s;z-index:5}
+@media (display-mode: fullscreen){#nav{display:none!important}}
+:fullscreen #nav{display:none!important}
 #nav{position:fixed;right:20px;top:14px;display:flex;align-items:center;gap:8px;font:600 14px Pretendard,sans-serif;color:var(--ink2);background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:999px;padding:6px 10px;opacity:.35;transition:opacity .2s;z-index:5}
 #nav:hover{opacity:1}
 #nav button{border:0;background:none;font:inherit;font-size:18px;color:var(--ink);cursor:pointer;width:30px;height:30px;border-radius:50%}
@@ -835,7 +837,8 @@ addEventListener('keydown',e=>{
 });
 function toggleFS(e){if(e)e.stopPropagation();(document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()).catch(()=>{})}
 if(document.getElementById('fs'))document.getElementById('fs').onclick=toggleFS;
-document.addEventListener('fullscreenchange',()=>{const b=document.getElementById('fs');if(!b)return;b.textContent=document.fullscreenElement?'⤫ 전체화면 종료':'⛶ 전체화면';document.getElementById('nav').style.display=document.fullscreenElement?'none':''});
+function syncFS(){const n=document.getElementById('nav'),b=document.getElementById('fs');if(!n)return;const full=!!document.fullscreenElement||(innerWidth>=screen.width-2&&innerHeight>=screen.height-2);n.style.display=full?'none':'';if(b)b.textContent=document.fullscreenElement?'⤫ 전체화면 종료':'⛶ 전체화면'}
+document.addEventListener('fullscreenchange',syncFS);addEventListener('resize',syncFS);syncFS();
 document.getElementById('prev').onclick=e=>{e.stopPropagation();show(cur-1)};
 document.getElementById('next').onclick=e=>{e.stopPropagation();show(cur+1)};
 stage.addEventListener('click',e=>{if(videoOpen())return;const r=stage.getBoundingClientRect();show(e.clientX<r.left+r.width/3?cur-1:cur+1)});
